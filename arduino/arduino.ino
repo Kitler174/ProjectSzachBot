@@ -40,7 +40,7 @@ float m1Angle(float endX, float endY, float err1, float err2) {
         localY = endY + correctionFactor(err1, err2, endX, endY);
     }
     float distance = sqrt(pow(localY, 2) + pow(localX, 2));
-    float cosTheta1 = (pow(L1, 2) + pow(distance, 2) - pow(L2, 2)) / (2 * L1 * distance);
+    float cosTheta1 = (pow(L1, 2) + pow(distance, 2) - pow(165, 2)) / (2 * L1 * distance);
     float theta1 = acos(cosTheta1);
     
     // Upewnij się, że poprawnie obliczasz kąt
@@ -85,7 +85,7 @@ void loop() {
 
         if (abs(currentX - targetX) > 0.001 || abs(currentY - targetY) > 0.001) {
             m1Target = m1Angle(targetX, targetY, currentY - targetY, currentX - targetX) / M_PI * 200 * 16;
-            m2Target = m2Angle(targetX, targetY, currentY - targetY, currentX - targetX) / M_PI * 200 * 16;
+          int m2Target = m2Angle(targetX, targetY, currentY - targetY, currentX - targetX) * (200.0 * 16.0) / PI;
             int m1Steps = abs(m1Target - m1StepAngle);
             int m2Steps = abs(m2Target - m2StepAngle);
             int m1Delay = 1000;
@@ -101,14 +101,14 @@ void loop() {
 
             for (int i = 0; i < m1Steps + m2Steps; i++) {
                 if (m1StepAngle < m1Target) {
-                    digitalWrite(dir1, HIGH);
+                    digitalWrite(dir1, LOW);
                     digitalWrite(step1, HIGH);
                     delayMicroseconds(m1Delay);
                     digitalWrite(step1, LOW);
                     delayMicroseconds(m1Delay);
                     m1StepAngle++;
                 } else if (m1StepAngle > m1Target) {
-                    digitalWrite(dir1, LOW);
+                    digitalWrite(dir1, HIGH);
                     digitalWrite(step1, HIGH);
                     delayMicroseconds(m1Delay);
                     digitalWrite(step1, LOW);

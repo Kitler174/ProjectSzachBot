@@ -10,13 +10,14 @@ def send_data(data):
     ser.write(data.encode())
     data = ser.readline()
     print(data)
+
 tagx = 0
 tagy = 0
 
 miny = -30000
 maxy = 30000
 maxx = 150000
-minx = 0
+minx = -100
 
 # 🔹 Główna pętla gry
 running = True
